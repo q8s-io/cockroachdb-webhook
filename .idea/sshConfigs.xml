@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="foo1002v.infra.corp.qihoo.net" id="cd49ce41-058e-4053-8ea4-ae0c54d0441b" port="22" nameFormat="DESCRIPTIVE" username="lichuang1" />
-    </configs>
-  </component>
-</project>
