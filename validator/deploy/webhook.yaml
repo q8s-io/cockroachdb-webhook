@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: codb-pod-validator-webhook
+  labels:
+    app: codb-pod-validator-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codb-pod-validator-webhook
+  template:
+    metadata:
+      labels:
+        app: codb-pod-validator-webhook
+    spec:
+      serviceAccount: cockroach-database-sa
+      containers:
+        - name: codb-pod-validator-webhook
+          image: uhub.service.ucloud.cn/infra/codbwebhook:v1
+          imagePullPolicy: Always
+          args:
+            - -tls-cert-file=/etc/webhook/certs/cert.pem
+            - -tls-key-file=/etc/webhook/certs/key.pem
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: codb-pod-validator-webhook-certs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: codb-pod-validator-webhook
+  labels:
+    app: codb-pod-validator-webhook
+spec:
+  ports:
+    - port: 443
+      targetPort: 8080
+  selector:
+    app: codb-pod-validator-webhook

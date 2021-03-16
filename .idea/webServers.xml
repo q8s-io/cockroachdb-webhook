@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="877502e6-fc03-43bc-b432-71a25a3fdfde" name="codbwebhook" url="http://foo1002v.infra.corp.qihoo.net">
+        <fileTransfer rootFolder="/home/lichuang1/GO/src" accessType="SFTP" host="foo1002v.infra.corp.qihoo.net" port="22" sshConfigId="cd49ce41-058e-4053-8ea4-ae0c54d0441b" sshConfig="lichuang1@foo1002v.infra.corp.qihoo.net:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
