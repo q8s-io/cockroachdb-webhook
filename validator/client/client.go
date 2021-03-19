@@ -43,7 +43,6 @@ func GetInfoFromUrl(uri string) (*UrlInfo, error) {
 		urlInfo.Server = fmt.Sprintf("%s://%s", requestURI.Scheme, requestURI.Host)
 	}
 	opts := requestURI.Query()
-	fmt.Println("opts--------------", opts)
 	if len(opts["inClusterConfig"]) > 0 {
 		inClusterConfig, err := strconv.ParseBool(opts["inClusterConfig"][0])
 		if err != nil {
@@ -135,15 +134,10 @@ func ConvertKubeCfg(urlInfo *UrlInfo) (*rest.Config, error) {
 	}
 	if urlInfo.UseServiceAccount {
 		// If a readable service account token exists, then use it
-		fmt.Println("--------------get token")
 		if contents, err := ioutil.ReadFile("/var/run/secrets/kubernetes.io/serviceaccount/token"); err == nil {
 			kubeConfig.BearerToken = string(contents)
-			fmt.Println(string(contents))
-		} else {
-			fmt.Println("read file token error: ", err.Error())
 		}
 	}
-	fmt.Println("------------------", kubeConfig.BearerToken)
 	kubeConfig.ContentType = "application/vnd.kubernetes.protobuf"
 	return kubeConfig, nil
 }

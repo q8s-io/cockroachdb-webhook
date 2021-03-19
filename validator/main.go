@@ -69,7 +69,7 @@ func (v *podValidator) deleteCoDBID(errorPod *corev1.Pod, normalPod *corev1.Pod)
 	deleteErr := make(chan struct{})
 	defer cancle()
 	go func(ctx context.Context) {
-		arg := fmt.Sprintf("cockroach node status --certs-dir=cockroach-certs/ | grep %v |awk '{print $1}' |head -1", errorPod.Name)
+		arg := fmt.Sprintf("cockroach node status --certs-dir=cockroach-certs/ | grep %v |awk '{print $1}' |tail -1", errorPod.Name)
 		req := v.client.CoreV1().RESTClient().Post().Resource("pods").Name(normalPod.Name).Namespace(normalPod.Namespace).SubResource("exec")
 		options := &corev1.PodExecOptions{
 			Command: []string{"/bin/bash", "-c", "id=" + "$(" + arg + ");cockroach --certs-dir=cockroach-certs/ node decommission $id"},
